@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liquid-indexer-prod
+  labels:
+    app: liquid-indexer-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liquid-indexer-prod
+  template:
+    metadata:
+      labels:
+        app: liquid-indexer-prod
+    spec:
+      containers:
+      - name: liquid-indexer-prod
+        image: liquid-indexer-ecr
+        imagePullPolicy: Always
