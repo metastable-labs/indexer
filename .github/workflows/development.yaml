@@ -6,7 +6,7 @@ on:
       - development
 
 env:
-  DEPLOYMENT_NAME: liquid.dev # TODO: update to deployment name
+  DEPLOYMENT_NAME: liquid.dev 
   IMAGE: dev.liquid.indexer
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEB_HOOK }}
 
@@ -24,7 +24,6 @@ jobs:
         uses: azure/setup-kubectl@v1
         with:
           version: 'v1.21.3'
-        id: install
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -37,9 +36,6 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Load secrets and save to .env
-        run: aws secretsmanager get-secret-value --secret-id dev/liquid-auth --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > .env
-
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -48,7 +44,8 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
-      - name: Update kube config
+
+      - name: Update kubeconfig
         run: aws eks update-kubeconfig --name liquid-dev --region eu-west-2
 
       - name: Deploy image to Amazon EKS
@@ -59,24 +56,23 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           cd $EKS_DIR
-          aws eks --region eu-west-2 update-kubeconfig --name liquid-dev
           curl -s -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
           chmod u+x ./kustomize
           ./kustomize edit set image liquid-indexer-ecr=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          ./kustomize build .| kubectl apply -f -
+          ./kustomize build . | kubectl apply -f -
 
-      - name: Notify slack success
+      - name: Notify Slack Success
         if: success()
         uses: act10ns/slack@v1
         with:
           channel: deployment
-          message: Deployed {{ env.GITHUB_REF_NAME }} branch 'Successfully :rocket:'
+          message: Deployed `{{ env.GITHUB_REF_NAME }}` branch successfully :rocket:
           status: SUCCESS
 
-      - name: Notify slack fail
+      - name: Notify Slack Fail
         if: failure()
         uses: act10ns/slack@v1
         with:
           channel: deployment
-          message: Deployed {{ env.GITHUB_REF_NAME }} branch failed
+          message: Deployment of `{{ env.GITHUB_REF_NAME }}` branch failed :x:
           status: FAILED
