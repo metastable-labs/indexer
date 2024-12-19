@@ -10,4 +10,4 @@ RUN pnpm i
 
 COPY . .
 
-CMD ["npm", "run", "start" "--schema", "public"]
+CMD ["npm", "run", "dev"]
