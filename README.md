@@ -1,34 +1,53 @@
 # Dev Indexer Events - SQS Queue
 
-This repository provides guidelines for consuming events from the **Dev Indexer Events** SQS queue. These events originate from smart contract listeners and are published to the queue for downstream processing.
+This repository provides guidelines for starting and consuming events to/from the Indexer Events SQS queue. These events originate from smart contract listeners and are published to the queue for downstream processing.
 
 ## SQS Queue Details
 
-- **Queue URL**:  
-  `https://sqs.eu-west-2.amazonaws.com/445567075963/dev-indexer-events`
-
-- **Region**:  
-  `eu-west-2`
-
----
+- **Queue URL:** https://sqs.eu-west-2.amazonaws.com/445567075963/dev-indexer-events
+- **Region:** eu-west-2
 
 ## Prerequisites
 
-1. **AWS Credentials**  
-   To interact with the queue, you will need the following:
+### AWS Credentials
 
-   - `AWS_ACCESS_KEY_ID`
-   - `AWS_SECRET_ACCESS_KEY`
+To interact with the queue, you will need the following:
 
-   Credentials will be provided securely via a private channel.
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
 
-2. **Polling Mechanism**  
-   Use your preferred tool or SDK to poll the queue:
-   - AWS CLI
-   - AWS SDKs (e.g., Node.js, Python, etc.)
-   - Any compatible SQS client for your programming language.
+Credentials will be provided securely via a private channel.
 
----
+### Polling Mechanism
+
+Use your preferred tool or SDK to poll the queue:
+
+- **AWS CLI**
+- **AWS SDKs** (e.g., Node.js, Python, etc.)
+- Any compatible SQS client for your programming language.
+
+### AWS CLI Configuration
+
+Ensure that the AWS CLI is installed and configured to use the provided credentials and the `eu-west-2` region.
+
+## Environment Setup
+
+Before starting the application, ensure the following environment variables are configured:
+
+```
+NODE_ENV=development
+PORT=3007
+LOG_LEVEL=info
+RPC_URL=https://example.com/infura
+DATABASE_URL=postgres://username:password@localhost:5432/liquid_indexer
+AWS_SQS_REGION=eu-west-2
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+SQS_QUEUE_URL=https://sqs.eu-west-2.amazonaws.com/445567075963/dev-indexer-events
+DATABASE_SCHEMA=public
+```
+
+Add these variables to a `.env` file at the root of your project or export them directly in your environment.
 
 ## Sample Event Data
 
@@ -60,8 +79,6 @@ This repository provides guidelines for consuming events from the **Dev Indexer 
 }
 ```
 
----
-
 ### Join Event
 
 ```json
@@ -78,10 +95,24 @@ This repository provides guidelines for consuming events from the **Dev Indexer 
 }
 ```
 
----
+## How to Start the Application
+
+1. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+2. Start the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+   The application will start on the port specified in the `PORT` environment variable (default: 3007).
 
 ## How to Poll the Queue
 
-1. Use the **SQS Queue URL** and **region** provided above.
-2. Set up a polling mechanism using AWS CLI or any SDK compatible with SQS.
-3. Process each message according to your application logic.
+- Use the SQS Queue URL and region provided above.
+- Set up a polling mechanism using AWS CLI or any SDK compatible with SQS.
+- Process each message according to your application logic.
