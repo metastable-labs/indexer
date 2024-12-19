@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liquid-strategy-prod
+  labels:
+    app: liquid-strategy-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liquid-strategy-prod
+  template:
+    metadata:
+      labels:
+        app: liquid-strategy-prod
+    spec:
+      containers:
+      - name: liquid-strategy-prod
+        image: liquid-strategy-ecr
+        imagePullPolicy: Always
