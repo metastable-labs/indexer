@@ -36,9 +36,15 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
+      # TEST ===> TEMPORARY
       - name: Load secrets and save to .env
         run: aws secretsmanager get-secret-value --secret-id dev/liquid-indexer --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > .env.production
+
+      - name: Load secrets and save to .env
+        run: aws secretsmanager get-secret-value --secret-id dev/liquid-indexer --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > .env.development
+
+      - name: Load secrets and save to .env
+        run: aws secretsmanager get-secret-value --secret-id dev/liquid-indexer --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > .env.local
 
       - name: Build, tag, and push image to Amazon ECR
         env:
