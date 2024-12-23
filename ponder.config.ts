@@ -31,11 +31,11 @@ export default createConfig({
       address: "0xa1f8E7DD401ad584F689710a81DF9F7f3056ca6C",
       startBlock: 23911733,
     },
-    AaveContract: {
-      network: "mainnet",
-      abi: AaveContractAbi,
-      address: "0xA238Dd80C259a72e81d7e4664a9801593F98d1c5",
-      startBlock: 23911733,
-    },
+    // AaveContract: {
+    //   network: "mainnet",
+    //   abi: AaveContractAbi,
+    //   address: "0xA238Dd80C259a72e81d7e4664a9801593F98d1c5",
+    //   startBlock: 23911733,
+    // },
   },
 });
