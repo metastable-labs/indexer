@@ -20,8 +20,6 @@ ponder.on(
         strategyDescription,
         steps,
         minDeposit,
-        maxTVL,
-        performanceFee,
       } = event.args;
 
       const eventData = {
@@ -34,8 +32,6 @@ ponder.on(
           amountRatio: step.amountRatio.toString(),
         })),
         minDeposit: minDeposit.toString(),
-        maxTVL: maxTVL.toString(),
-        performanceFee: performanceFee.toString(),
         blockNumber: event.block.number,
         transactionHash: event.transaction.hash,
       };

@@ -49,3 +49,48 @@ ponder.on(
     }
   }
 );
+
+ponder.on(
+  "EngineContract:Exit",
+  async ({
+    event,
+    context,
+  }: {
+    event: EventArgs["EngineContract:Exit"];
+    context: EventContext;
+  }) => {
+    try {
+      const { strategyId, user } = event.args;
+
+      const eventData = {
+        strategyId,
+        user,
+        blockNumber: event.block.number,
+        transactionHash: event.transaction.hash,
+      };
+
+      logger.info("EngineContract: Exit event detected", eventData);
+
+      // await context.db.insert("contract_events").values({
+      //   contractName: "EngineContract",
+      //   blockNumber: eventData.blockNumber,
+      //   eventName: "Join",
+      //   eventData,
+      // });
+
+      await sendToSQS("Exit", eventData);
+
+      logger.info(
+        "EngineContract: Exit event processed successfully",
+        eventData
+      );
+    } catch (error) {
+      logger.error("Error processing EngineContract:Exit event", {
+        error: error instanceof Error ? error.message : String(error),
+        blockNumber: event.block.number,
+        transactionHash: event.transaction.hash,
+      });
+      throw error;
+    }
+  }
+);

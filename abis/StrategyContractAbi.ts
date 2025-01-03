@@ -60,18 +60,6 @@ export const StrategyContractAbi = [
         name: "minDeposit",
         type: "uint256",
       },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "maxTVL",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "performanceFee",
-        type: "uint256",
-      },
     ],
     name: "CreateStrategy",
     type: "event",
