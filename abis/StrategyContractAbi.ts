@@ -44,7 +44,7 @@ export const StrategyContractAbi = [
         name: "curator",
         type: "address",
       },
-      { indexed: true, internalType: "string", name: "name", type: "string" },
+      { indexed: false, internalType: "string", name: "name", type: "string" },
       {
         indexed: false,
         internalType: "string",
