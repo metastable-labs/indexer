@@ -145,7 +145,12 @@ export const EngineContractAbi = [
         name: "strategyId",
         type: "bytes32",
       },
-      { indexed: true, internalType: "address", name: "user", type: "address" },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
     ],
     name: "Exit",
     type: "event",
@@ -184,7 +189,12 @@ export const EngineContractAbi = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: "address", name: "from", type: "address" },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
       { indexed: true, internalType: "address", name: "to", type: "address" },
       {
         indexed: false,

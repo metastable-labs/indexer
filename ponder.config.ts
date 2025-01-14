@@ -20,15 +20,15 @@ export default createConfig({
     StrategyContract: {
       network: "mainnet",
       abi: StrategyContractAbi,
-      address: "0x99d6D2dEf07Fb0082688272B547841045E431a9d",
-      startBlock: 24696994,
+      address: "0xCBAa6be0d4c7A251a42E5AB323620bc143eF2e24",
+      startBlock: 25030547,
     },
 
     EngineContract: {
       network: "mainnet",
       abi: EngineContractAbi,
-      address: "0x94A4D03f2823BC0A183e49636A1896B2754C5c3B",
-      startBlock: 24696994,
+      address: "0xFc31a7C508062909c5B79867Ff538DB369bEd65a",
+      startBlock: 25030547,
     },
   },
 });

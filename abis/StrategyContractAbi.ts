@@ -4,6 +4,11 @@ export const StrategyContractAbi = [
     stateMutability: "nonpayable",
     type: "constructor",
   },
+  { inputs: [], name: "CallerNotConnector", type: "error" },
+  { inputs: [], name: "CallerNotEngine", type: "error" },
+  { inputs: [], name: "InvalidActionType", type: "error" },
+  { inputs: [], name: "InvalidAmountRatio", type: "error" },
+  { inputs: [], name: "InvalidSteps", type: "error" },
   {
     inputs: [{ internalType: "address", name: "owner", type: "address" }],
     name: "OwnableInvalidOwner",
@@ -24,11 +29,7 @@ export const StrategyContractAbi = [
     name: "StrategyNotFound",
     type: "error",
   },
-  {
-    inputs: [{ internalType: "address", name: "caller", type: "address" }],
-    name: "Unauthorized",
-    type: "error",
-  },
+  { inputs: [], name: "ZeroAddress", type: "error" },
   {
     anonymous: false,
     inputs: [
@@ -44,7 +45,12 @@ export const StrategyContractAbi = [
         name: "curator",
         type: "address",
       },
-      { indexed: false, internalType: "string", name: "name", type: "string" },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
       {
         indexed: false,
         internalType: "string",
@@ -134,7 +140,11 @@ export const StrategyContractAbi = [
   {
     inputs: [
       { internalType: "string", name: "_name", type: "string" },
-      { internalType: "string", name: "_strategyDescription", type: "string" },
+      {
+        internalType: "string",
+        name: "_strategyDescription",
+        type: "string",
+      },
       {
         components: [
           { internalType: "address", name: "connector", type: "address" },
@@ -187,7 +197,11 @@ export const StrategyContractAbi = [
                 type: "address[]",
               },
               { internalType: "address", name: "assetOut", type: "address" },
-              { internalType: "uint256", name: "amountRatio", type: "uint256" },
+              {
+                internalType: "uint256",
+                name: "amountRatio",
+                type: "uint256",
+              },
               { internalType: "bytes", name: "data", type: "bytes" },
             ],
             internalType: "struct ILiquidStrategy.Step[]",
@@ -232,7 +246,11 @@ export const StrategyContractAbi = [
                 type: "address[]",
               },
               { internalType: "address", name: "assetOut", type: "address" },
-              { internalType: "uint256", name: "amountRatio", type: "uint256" },
+              {
+                internalType: "uint256",
+                name: "amountRatio",
+                type: "uint256",
+              },
               { internalType: "bytes", name: "data", type: "bytes" },
             ],
             internalType: "struct ILiquidStrategy.Step[]",
@@ -277,7 +295,11 @@ export const StrategyContractAbi = [
                 type: "address[]",
               },
               { internalType: "address", name: "assetOut", type: "address" },
-              { internalType: "uint256", name: "amountRatio", type: "uint256" },
+              {
+                internalType: "uint256",
+                name: "amountRatio",
+                type: "uint256",
+              },
               { internalType: "bytes", name: "data", type: "bytes" },
             ],
             internalType: "struct ILiquidStrategy.Step[]",
@@ -290,6 +312,21 @@ export const StrategyContractAbi = [
         name: "",
         type: "tuple[]",
       },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "bytes32", name: "_strategyId", type: "bytes32" },
+      { internalType: "address[]", name: "_assets", type: "address[]" },
+    ],
+    name: "getStrategyStats",
+    outputs: [
+      { internalType: "uint256[]", name: "totalDeposits", type: "uint256[]" },
+      { internalType: "uint256", name: "totalUsers", type: "uint256" },
+      { internalType: "uint256", name: "totalFeeGenerated", type: "uint256" },
+      { internalType: "uint256", name: "lastUpdated", type: "uint256" },
     ],
     stateMutability: "view",
     type: "function",
@@ -381,8 +418,16 @@ export const StrategyContractAbi = [
           },
           {
             components: [
-              { internalType: "address[]", name: "assets", type: "address[]" },
-              { internalType: "uint256[]", name: "amounts", type: "uint256[]" },
+              {
+                internalType: "address[]",
+                name: "assets",
+                type: "address[]",
+              },
+              {
+                internalType: "uint256[]",
+                name: "amounts",
+                type: "uint256[]",
+              },
             ],
             internalType: "struct ILiquidStrategy.AssetBalance[]",
             name: "tokenBalances",
@@ -391,8 +436,16 @@ export const StrategyContractAbi = [
           {
             components: [
               { internalType: "address", name: "protocol", type: "address" },
-              { internalType: "address", name: "shareToken", type: "address" },
-              { internalType: "uint256", name: "shareAmount", type: "uint256" },
+              {
+                internalType: "address",
+                name: "shareToken",
+                type: "address",
+              },
+              {
+                internalType: "uint256",
+                name: "shareAmount",
+                type: "uint256",
+              },
               {
                 internalType: "address[]",
                 name: "underlyingTokens",
@@ -450,6 +503,17 @@ export const StrategyContractAbi = [
     type: "function",
   },
   {
+    inputs: [
+      { internalType: "bytes32", name: "_strategyId", type: "bytes32" },
+      { internalType: "address", name: "_user", type: "address" },
+      { internalType: "bool", name: "_status", type: "bool" },
+    ],
+    name: "setJoinedStrategy",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "_connector", type: "address" }],
     name: "toggleConnector",
     outputs: [],
@@ -478,7 +542,9 @@ export const StrategyContractAbi = [
       { internalType: "bytes32", name: "_strategyId", type: "bytes32" },
       { internalType: "address[]", name: "_assets", type: "address[]" },
       { internalType: "uint256[]", name: "_amounts", type: "uint256[]" },
+      { internalType: "address", name: "_user", type: "address" },
       { internalType: "uint256", name: "_performanceFee", type: "uint256" },
+      { internalType: "uint256", name: "_indicator", type: "uint256" },
     ],
     name: "updateStrategyStats",
     outputs: [],
