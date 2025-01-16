@@ -45,12 +45,7 @@ export const StrategyContractAbi = [
         name: "curator",
         type: "address",
       },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
+      { indexed: false, internalType: "string", name: "name", type: "string" },
       {
         indexed: false,
         internalType: "string",
@@ -140,11 +135,7 @@ export const StrategyContractAbi = [
   {
     inputs: [
       { internalType: "string", name: "_name", type: "string" },
-      {
-        internalType: "string",
-        name: "_strategyDescription",
-        type: "string",
-      },
+      { internalType: "string", name: "_strategyDescription", type: "string" },
       {
         components: [
           { internalType: "address", name: "connector", type: "address" },
@@ -197,11 +188,7 @@ export const StrategyContractAbi = [
                 type: "address[]",
               },
               { internalType: "address", name: "assetOut", type: "address" },
-              {
-                internalType: "uint256",
-                name: "amountRatio",
-                type: "uint256",
-              },
+              { internalType: "uint256", name: "amountRatio", type: "uint256" },
               { internalType: "bytes", name: "data", type: "bytes" },
             ],
             internalType: "struct ILiquidStrategy.Step[]",
@@ -246,11 +233,7 @@ export const StrategyContractAbi = [
                 type: "address[]",
               },
               { internalType: "address", name: "assetOut", type: "address" },
-              {
-                internalType: "uint256",
-                name: "amountRatio",
-                type: "uint256",
-              },
+              { internalType: "uint256", name: "amountRatio", type: "uint256" },
               { internalType: "bytes", name: "data", type: "bytes" },
             ],
             internalType: "struct ILiquidStrategy.Step[]",
@@ -295,11 +278,7 @@ export const StrategyContractAbi = [
                 type: "address[]",
               },
               { internalType: "address", name: "assetOut", type: "address" },
-              {
-                internalType: "uint256",
-                name: "amountRatio",
-                type: "uint256",
-              },
+              { internalType: "uint256", name: "amountRatio", type: "uint256" },
               { internalType: "bytes", name: "data", type: "bytes" },
             ],
             internalType: "struct ILiquidStrategy.Step[]",
@@ -418,16 +397,8 @@ export const StrategyContractAbi = [
           },
           {
             components: [
-              {
-                internalType: "address[]",
-                name: "assets",
-                type: "address[]",
-              },
-              {
-                internalType: "uint256[]",
-                name: "amounts",
-                type: "uint256[]",
-              },
+              { internalType: "address[]", name: "assets", type: "address[]" },
+              { internalType: "uint256[]", name: "amounts", type: "uint256[]" },
             ],
             internalType: "struct ILiquidStrategy.AssetBalance[]",
             name: "tokenBalances",
@@ -436,16 +407,8 @@ export const StrategyContractAbi = [
           {
             components: [
               { internalType: "address", name: "protocol", type: "address" },
-              {
-                internalType: "address",
-                name: "shareToken",
-                type: "address",
-              },
-              {
-                internalType: "uint256",
-                name: "shareAmount",
-                type: "uint256",
-              },
+              { internalType: "address", name: "shareToken", type: "address" },
+              { internalType: "uint256", name: "shareAmount", type: "uint256" },
               {
                 internalType: "address[]",
                 name: "underlyingTokens",

@@ -74,7 +74,22 @@ export const EngineContractAbi = [
     name: "ERC4626ExceededMaxWithdraw",
     type: "error",
   },
+  {
+    inputs: [{ internalType: "string", name: "reason", type: "string" }],
+    name: "ExecuteStepFailed",
+    type: "error",
+  },
   { inputs: [], name: "InvalidActionType", type: "error" },
+  {
+    inputs: [{ internalType: "address", name: "owner", type: "address" }],
+    name: "OwnableInvalidOwner",
+    type: "error",
+  },
+  {
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "OwnableUnauthorizedAccount",
+    type: "error",
+  },
   {
     inputs: [{ internalType: "address", name: "token", type: "address" }],
     name: "SafeERC20FailedOperation",
@@ -145,12 +160,7 @@ export const EngineContractAbi = [
         name: "strategyId",
         type: "bytes32",
       },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "user", type: "address" },
     ],
     name: "Exit",
     type: "event",
@@ -192,9 +202,42 @@ export const EngineContractAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "from",
+        name: "previousOwner",
         type: "address",
       },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferStarted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "from", type: "address" },
       { indexed: true, internalType: "address", name: "to", type: "address" },
       {
         indexed: false,
@@ -242,6 +285,13 @@ export const EngineContractAbi = [
     ],
     name: "Withdraw",
     type: "event",
+  },
+  {
+    inputs: [],
+    name: "acceptOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
     inputs: [
@@ -375,6 +425,20 @@ export const EngineContractAbi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "owner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "pendingOwner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "assets", type: "uint256" }],
     name: "previewDeposit",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
@@ -415,9 +479,23 @@ export const EngineContractAbi = [
   },
   {
     inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "symbol",
     outputs: [{ internalType: "string", name: "", type: "string" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_assetOut", type: "address" }],
+    name: "toggleAssetOut",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -453,6 +531,20 @@ export const EngineContractAbi = [
     name: "transferFrom",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "verifyAssetOut",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
     type: "function",
   },
   {
